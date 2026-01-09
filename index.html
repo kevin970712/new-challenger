@@ -334,14 +334,15 @@
                         const diff = parts[1] || '一般';
 
                         dayHtml += `
-                            <div class="char-card diff-${diffKey} ${isCompleted ? 'is-completed' : ''}">
+                            <div class="char-card diff-${diffKey} ${isCompleted ? 'is-completed' : ''} cursor-pointer"
+                                 onclick="toggleEvent('${eventText}')">
                                 <div class="char-info">
                                     <span class="char-name">${name}</span>
                                     <span class="char-diff diff-text-${diffKey}">${diff}</span>
                                 </div>
-                                <input type="checkbox" class="complete-cb" 
+                                <input type="checkbox" class="complete-cb pointer-events-none"
                                     ${isCompleted ? 'checked' : ''} 
-                                    onclick="toggleEvent('${eventText}')">
+                                    readonly>
                             </div>
                         `;
                     });
