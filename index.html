@@ -307,7 +307,7 @@
             const root = document.getElementById('schedule-root');
             root.innerHTML = '';
             const now = new Date();
-            const todayStr = now.toISOString().split('T')[0];
+            const todayStr = now.toLocaleDateString('sv-SE');
             const currentHour = now.getHours();
 
             document.getElementById('show-completed-toggle').checked = showCompleted;
@@ -374,6 +374,7 @@
     </script>
 </body>
 </html>
+
 
 
 
