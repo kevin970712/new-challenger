@@ -218,6 +218,14 @@
             </label>
 
             <div class="h-4 w-[1px] bg-slate-700"></div>
+
+            <label class="toggle-btn">
+                <span class="text-slate-300">隱藏過去日期</span>
+                <input type="checkbox" id="hide-past-toggle" onchange="togglePastVisibility()">
+                <div class="toggle-switch"></div>
+            </label>
+
+            <div class="h-4 w-[1px] bg-slate-700"></div>
             <button onclick="resetFilters()" class="hover:text-sky-400 transition-colors text-slate-300">重設</button>
         </div>
     </div>
@@ -263,6 +271,7 @@
         ];
         let completedEvents = JSON.parse(localStorage.getItem('sf6_completed_events') || '[]');
         let showCompleted = JSON.parse(localStorage.getItem('sf6_show_completed') || 'false');
+        let hidePast = JSON.parse(localStorage.getItem('sf6_hide_past') || 'false');
 
         function getDiffKey(text) {
             if (text.includes("超級難")) return "extreme";
@@ -285,6 +294,16 @@
             showCompleted = document.getElementById('show-completed-toggle').checked;
             localStorage.setItem('sf6_show_completed', JSON.stringify(showCompleted));
             updateBodyClass();
+        }
+
+        function togglePastVisibility() {
+
+            hidePast = document.getElementById('hide-past-toggle').checked;
+
+            localStorage.setItem('sf6_hide_past', JSON.stringify(hidePast));
+
+            render();
+
         }
 
         function updateBodyClass() {
@@ -314,6 +333,9 @@
             updateBodyClass();
 
             scheduleData.forEach(day => {
+                if (hidePast && day.date < todayStr) {
+                    return;
+                }
                 const dayGroup = document.createElement('div');
                 dayGroup.className = 'day-group';
                 const isToday = day.date === todayStr;
@@ -374,6 +396,7 @@
     </script>
 </body>
 </html>
+
 
 
 
